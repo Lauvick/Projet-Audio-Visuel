@@ -1,174 +1,159 @@
-# 🎵 Projet Audio HERMANN - Réduction de Bruit IA
+# 🎬 Projet Audio-Visuel - Frère Théodore
 
-## 📋 Objectif Principal
-Solution basée sur l'IA pour la réduction de bruit sur fichiers audio extraits de productions vidéo. Cette solution est conçue pour gérer des bruits de fond complexes et large bande.
+Application Windows pour la **détection vocale automatique** et la **génération de shorts** avec sous-titres dynamiques mot par mot.
 
-## ✅ Stories Validées
-- **Story 1.3**: Tester différents outils de réduction de bruit IA pour choisir le meilleur
-- **Story 2.2**: Utiliser une IA pour nettoyer l'audio automatiquement
+![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey.svg)
 
-## 📁 Structure du Projet
-```
-Projet_audio/
-│
-├── denoise_agent.py              # Script principal de dénoisation IA
-├── requirements.txt              # Dépendances Python
-├── README.md                     # Documentation (ce fichier)
-│
-├── audio_bruit_test1.wav         # [À FOURNIR] Fichier audio source bruité
-├── audio_nettoye_ia.wav          # [GÉNÉRÉ] Fichier audio nettoyé
-└── comparaison_fft_denoise.png   # [GÉNÉRÉ] Graphique FFT comparatif
-```
+## ✨ Fonctionnalités
 
-## 🔧 Installation
+- 🎤 **Détection vocale** : Identifie automatiquement une voix spécifique dans une vidéo (empreinte vocale)
+- ✂️ **Génération de shorts** : Extrait les segments détectés en clips courts
+- 📝 **Sous-titres dynamiques** : Affichage mot par mot synchronisé avec la parole
+- 🎯 **Transcription précise** : Utilise faster-whisper (large-v3) pour une transcription de qualité
+- 🎮 **Détection GPU automatique** : Accélération CUDA si disponible
+- 🖥️ **Interface graphique moderne** : Application Windows avec thème sombre/clair
+
+## 📸 Aperçu
+
+L'application propose :
+- Sélection de vidéos à analyser
+- Choix du modèle de transcription (Rapide vs Précis)
+- Pipeline complet : détection → extraction → sous-titres
+- Logs en temps réel avec progression
+
+## 🚀 Installation
 
 ### Prérequis
-- Python 3.8 ou supérieur
-- pip (gestionnaire de paquets Python)
 
-### Étape 1: Installation des dépendances
-Ouvrez un terminal dans le dossier du projet et exécutez:
+- **Python 3.10+** ([Télécharger](https://www.python.org/downloads/))
+- **FFmpeg** ([Télécharger](https://ffmpeg.org/download.html)) - Doit être dans le PATH
+- **~5 GB d'espace disque** (pour les modèles IA)
 
-```powershell
-pip install -r requirements.txt
+### Étape 1 : Cloner le projet
+
+```bash
+git clone https://github.com/Lauvick/Projet-Audio-Visuel.git
+cd Projet-Audio-Visuel
 ```
 
-### Bibliothèques Installées
-- **numpy**: Calculs numériques et manipulation de tableaux
-- **scipy**: Traitement du signal (FFT, STFT, lecture/écriture WAV)
-- **matplotlib**: Visualisation des spectres FFT
-- **noisereduce**: Bibliothèque IA de dénoisation (méthode principale)
-- **librosa**: Analyse audio avancée (optionnel)
-- **soundfile**: Support de formats audio supplémentaires
-- **tqdm**: Barres de progression
+### Étape 2 : Créer un environnement virtuel
+
+```bash
+# Windows
+python -m venv .venv
+.venv\Scripts\activate
+
+# Linux/Mac
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+### Étape 3 : Installer les dépendances
+
+```bash
+pip install -r requirements.txt
+pip install -r ai_agent/requirements_ai.txt
+```
+
+### Étape 4 : Premier lancement (téléchargement des modèles)
+
+Au premier lancement, les modèles IA seront téléchargés automatiquement (~3 GB) :
+- **SpeechBrain X-Vector** : Pour la détection vocale
+- **faster-whisper large-v3** : Pour la transcription
 
 ## 🎯 Utilisation
 
-### Préparation
-1. Placez votre fichier audio bruité dans le dossier du projet
-2. Renommez-le en `audio_bruit_test1.wav` (ou modifiez le nom dans le script)
+### Lancer l'application graphique
 
-### Caractéristiques Requises du Fichier Audio
-- **Format**: WAV (non compressé)
-- **Encodage**: 16-bit PCM (recommandé)
-- **Fréquence**: 48000 Hz (idéal, mais d'autres fréquences sont supportées)
-
-### Exécution
-```powershell
-python denoise_agent.py
+```bash
+python ai_agent/app_gui.py
 ```
 
-## 📊 Résultats Générés
+Ou double-cliquez sur `Lancer_Application.bat`
 
-### 1. Fichier Audio Nettoyé
-- **Nom**: `audio_nettoye_ia.wav`
-- **Format**: WAV 16-bit PCM
-- **Contenu**: Signal audio avec bruit large bande réduit
+### Interface
 
-### 2. Graphique Comparatif FFT
-- **Nom**: `comparaison_fft_denoise.png`
-- **Contenu**: 
-  - Graphique supérieur: Spectre FFT comparé (Original vs Nettoyé)
-  - Graphique inférieur: Profil du bruit éliminé
-- **Métrique**: Réduction du plancher de bruit en dB
+1. **Sélectionnez une vidéo** dans le menu déroulant
+2. **Choisissez le modèle** :
+   - ⚡ **Rapide** : ~3 min pour 10 min de vidéo (CPU)
+   - 🎯 **Précis** : ~17 min pour 10 min de vidéo (CPU)
+3. **Cliquez sur une action** :
+   - 🚀 Générer les Shorts : Pipeline complet
+   - 📝 Transcrire la vidéo : Transcription seule (TXT + SRT)
+   - 🔍 Analyser : Détection vocale uniquement
 
-## 🧠 Méthodes de Dénoisation IA
+### Créer une empreinte vocale personnalisée
 
-### Méthode Principale: `noisereduce`
-- Algorithme IA basé sur le filtrage spectral avancé
-- Détection automatique du profil de bruit
-- Configuration optimisée pour bruit large bande:
-  - Bruit non-stationnaire
-  - Réduction agressive (90%)
-  - Lissage fréquentiel et temporel
+Pour détecter une voix spécifique, placez 2-3 fichiers audio (.wav, .mp3, .m4a) de cette personne dans `ai_agent/audio_theodore/` puis :
 
-### Méthode Alternative: Spectral Gating
-- Utilisée si `noisereduce` n'est pas disponible
-- Basée sur STFT (Short-Time Fourier Transform)
-- Estimation du profil de bruit sur les premières frames
-- Application d'un masque spectral adaptatif
-
-## 📈 Critères de Succès
-✅ Le script s'exécute sans erreur  
-✅ Un graphique comparatif des spectres FFT est généré  
-✅ Le graphique montre une réduction visible du bruit de fond  
-✅ Le fichier `audio_nettoye_ia.wav` est créé  
-✅ Réduction mesurable du plancher de bruit (affiché en dB)
-
-## 🔍 Analyse Technique
-
-### Pipeline de Traitement
-```
-1. CHARGEMENT
-   ├── Lecture du fichier WAV
-   ├── Vérification Fs = 48000 Hz
-   ├── Conversion mono si stéréo
-   └── Normalisation [-1.0, 1.0]
-
-2. DÉNOISATION IA
-   ├── Analyse du profil de bruit
-   ├── Application algorithme IA (noisereduce)
-   └── Normalisation du signal nettoyé
-
-3. VALIDATION FFT
-   ├── Calcul FFT original
-   ├── Calcul FFT nettoyé
-   ├── Mesure du plancher de bruit
-   └── Génération graphique comparatif
-
-4. EXPORTATION
-   ├── Conversion int16
-   └── Sauvegarde WAV
+```bash
+python ai_agent/create_voice_print.py
 ```
 
-### Paramètres Clés
-- **Taille FFT**: 2048 échantillons
-- **Réduction du bruit**: 90% (prop_decrease=0.9)
-- **Lissage fréquentiel**: 500 Hz
-- **Lissage temporel**: 50 ms
+## 📁 Structure du projet
 
-## 🛠️ Personnalisation
-
-### Modifier le Fichier d'Entrée
-Éditez la ligne dans `denoise_agent.py`:
-```python
-denoiser = AudioDenoiser(input_file="votre_fichier.wav")
+```
+Projet-Audio-Visuel/
+├── ai_agent/
+│   ├── app_gui.py              # 🖥️ Application graphique principale
+│   ├── transcription_engine.py # 🎤 Moteur faster-whisper
+│   ├── detect_theodore.py      # 🔍 Détection vocale
+│   ├── generate_shorts.py      # ✂️ Génération de shorts
+│   ├── create_voice_print.py   # 🎯 Création d'empreinte vocale
+│   ├── chatbot.py              # 🤖 Interface chatbot (Ollama)
+│   ├── videos_theodore/        # 📹 Vidéos à analyser
+│   ├── shorts_theodore/        # 🎬 Shorts générés
+│   └── transcriptions/         # 📄 Fichiers de transcription
+├── requirements.txt            # 📦 Dépendances de base
+├── Lancer_Application.bat      # ▶️ Lanceur Windows
+└── README.md                   # 📖 Documentation
 ```
 
-### Ajuster l'Agressivité de la Réduction
-Dans la fonction `denoise_audio()`, modifiez:
-```python
-prop_decrease=0.9  # 0.0 (aucune) à 1.0 (max)
+## ⚡ Performance
+
+| Mode | CPU (i7/Ryzen 7) | GPU NVIDIA |
+|------|------------------|------------|
+| **Rapide (small)** | ~0.3x temps réel | ~0.02x temps réel |
+| **Précis (large-v3)** | ~1.5x temps réel | ~0.1x temps réel |
+
+*Exemple : Vidéo de 10 min → 3 min (Rapide/CPU) ou 1 min (Précis/GPU)*
+
+## 🔧 Configuration GPU (optionnel)
+
+Si vous avez un GPU NVIDIA, installez CUDA pour des transcriptions 10x plus rapides :
+
+```bash
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 ```
 
-### Forcer une Méthode Spécifique
-```python
-denoiser.denoise_audio(method="noisereduce")  # ou "spectral"
-```
+L'application détecte automatiquement le GPU au démarrage.
 
-## 📞 Support & Dépannage
+## 📝 Dépendances principales
 
-### Erreur: "Fichier introuvable"
-- Vérifiez que `audio_bruit_test1.wav` est dans le même dossier que le script
-- Vérifiez l'orthographe du nom de fichier
+- **faster-whisper** : Transcription audio ultra-rapide
+- **speechbrain** : Détection et reconnaissance vocale
+- **customtkinter** : Interface graphique moderne
+- **FFmpeg** : Traitement vidéo/audio
 
-### Erreur: "Import could not be resolved"
-- Réinstallez les dépendances: `pip install -r requirements.txt`
-- Vérifiez que vous utilisez le bon environnement Python
+## 🤝 Contribution
 
-### Performances Lentes
-- Normal pour de longs fichiers audio
-- Une barre de progression s'affiche pendant le traitement
-- Durée approximative: ~10-30 secondes par minute d'audio
+Les contributions sont les bienvenues ! N'hésitez pas à :
+1. Fork le projet
+2. Créer une branche (`git checkout -b feature/amelioration`)
+3. Commit (`git commit -m 'Ajout fonctionnalité'`)
+4. Push (`git push origin feature/amelioration`)
+5. Ouvrir une Pull Request
 
-## 📚 Références Techniques
-- **FFT**: Analyse spectrale du signal audio
-- **Spectral Gating**: Réduction de bruit par masquage fréquentiel
-- **noisereduce**: https://github.com/timsainb/noisereduce
-- **Fréquence 48kHz**: Standard professionnel vidéo/audio
+## 📄 Licence
+
+Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE) pour plus de détails.
+
+## 👤 Auteur
+
+**Lauvick** - [GitHub](https://github.com/Lauvick)
 
 ---
 
-**Auteur**: Agent IA Copilot  
-**Date**: Décembre 2025  
-**Projet**: HERMANN - Production Audio/Vidéo
+⭐ Si ce projet vous est utile, n'hésitez pas à lui donner une étoile !

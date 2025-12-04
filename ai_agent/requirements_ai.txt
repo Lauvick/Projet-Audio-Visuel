@@ -1,5 +1,21 @@
+# === Dépendances IA pour Projet Frère Théodore ===
+
+# Transcription audio (faster-whisper)
+faster-whisper>=1.0.0
+ctranslate2>=4.0.0
+
+# Détection vocale (SpeechBrain)
 torch
 torchaudio
-speechbrain
-pydub
-numpy
+speechbrain>=1.0.0
+
+# Interface graphique
+customtkinter>=5.2.0
+pillow>=10.0.0
+
+# Traitement audio
+pydub>=0.25.0
+numpy>=1.24.0
+
+# Chatbot local (optionnel)
+ollama>=0.1.0
