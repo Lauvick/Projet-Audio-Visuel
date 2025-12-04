@@ -1,0 +1,20 @@
+[Script Info]
+Title: Sous-titres
+ScriptType: v4.00+
+Collisions: Normal
+PlayDepth: 0
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,Arial,22,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,0,0,0,0,100,100,0,0,1,2,1,2,10,10,30,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+Dialogue: 0,00:00:00.00,00:00:06.94,Default,,0,0,0,,Coucou Diane, c'est Lovic. Bon, je me doute bien que tu l'aies remarqué. Bref, c'était
+Dialogue: 0,00:00:06.94,00:00:13.46,Default,,0,0,0,,une parenthèse. En tout cas, je tenais à te souhaiter un joyeux anniversaire. En ce
+Dialogue: 0,00:00:13.46,00:00:20.83,Default,,0,0,0,,jour-ci spécial, je rends grâce à Dieu pour ta vie et je prie que le Seigneur te comble
+Dialogue: 0,00:00:20.83,00:00:28.26,Default,,0,0,0,,davantage de sa paix, s'assagère sur son amour. Et je prie également que cette nouvelle
+Dialogue: 0,00:00:28.26,00:00:37.02,Default,,0,0,0,,année soit une saison de croissance spirituelle, de bénédiction abondante et d'accomplissement
+Dialogue: 0,00:00:37.02,00:00:45.82,Default,,0,0,0,,de ses promesses dans ta vie. Reste toujours cette lumière que t'es et n'oublie jamais que
+Dialogue: 0,00:00:45.82,00:00:53.98,Default,,0,0,0,,t'es précieuse aux yeux de Dieu. Sois béni et passe une magnifique journée. Que Dieu te bénisse,
+Dialogue: 0,00:00:53.98,00:00:55.26,Default,,0,0,0,,ma soeur. Ciao.

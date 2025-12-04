@@ -1,0 +1,6 @@
+Transcription de: com_frat.mp4
+Langue: sn
+Modèle: Whisper medium
+==================================================
+
+eh

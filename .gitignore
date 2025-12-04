@@ -1,0 +1,64 @@
+# ============================================================
+# GITIGNORE - Projet Frère Théodore
+# ============================================================
+
+# === Environnement Python/Conda ===
+.conda/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# === Modèles IA (très volumineux) ===
+ai_agent/models_cache/
+ai_agent/voice_prints/*.pt
+*.pt
+*.pth
+*.onnx
+*.bin
+
+# === Fichiers média (vidéos, audio) ===
+ai_agent/videos_theodore/*.mp4
+ai_agent/videos_theodore/*.avi
+ai_agent/videos_theodore/*.mkv
+ai_agent/videos_theodore/*.mov
+ai_agent/shorts_theodore/*.mp4
+ai_agent/transcriptions/
+*.wav
+*.mp3
+*.m4a
+*.flac
+
+# === Fichiers audio d'entraînement ===
+ai_agent/audio_theodore/*.m4a
+ai_agent/audio_theodore/*.wav
+ai_agent/audio_theodore/*.mp3
+
+# === Résultats et logs ===
+ai_agent/resultats/
+*.log
+
+# === IDE et éditeurs ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# === OS ===
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# === Temporaires ===
+*.tmp
+*.temp
+*.bak
+
+# === Jupyter Notebooks checkpoints ===
+.ipynb_checkpoints/

@@ -1,0 +1,22 @@
+======================================================================
+RÉSULTATS DE L'ANALYSE EN BATCH
+======================================================================
+
+Vidéos analysées: 2
+Analyses réussies: 1
+Temps total de Théodore: 0:00:06
+
+--------------------------------------------------
+Vidéo: test1.mp4
+Statut: error
+Erreur: [WinError 32] Le processus ne peut pas accéder au fichier car ce fichier est utilisé par un autre processus: 'c:\\Users\\nichi\\Documents\\HERMANN\\Projet_audio\\ai_agent\\models_cache\\embedding_model.ckpt'
+
+--------------------------------------------------
+Vidéo: test2.mp4
+Statut: success
+Durée totale: 0:09:29
+Temps de Théodore: 0:00:06
+Segments (2):
+  1. 0:00:15 -> 0:00:18
+  2. 0:02:03 -> 0:02:06
+
